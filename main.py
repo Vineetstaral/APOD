@@ -44,28 +44,17 @@ def get_apod(date=None):
 # Streamlit app
 st.title("🌌 NASA Astronomy Picture of the Day 🚀")
 
-# Sidebar for date selection
-st.sidebar.header("Select a Date")
-selected_date = st.sidebar.date_input(
-    "Choose a date",
+# Date picker in the main interface
+selected_date = st.date_input(
+    "Select a date",
     value=datetime.today(),  # Default to today's date
     max_value=datetime.today(),  # Cannot select future dates
     min_value=datetime(1995, 6, 16)  # APOD started on June 16, 1995
 )
 
 # Fetch APOD for the selected date
-if st.sidebar.button("Fetch APOD for Selected Date"):
+if st.button("Fetch APOD"):
     apod = get_apod(selected_date.strftime("%Y-%m-%d"))  # Convert date to string format
-    if "error" in apod:
-        st.error(apod["error"])
-    else:
-        st.write(f"### {apod['title']} ({apod['date']})")
-        st.image(apod["url"], caption=apod["title"])
-        st.write(apod["explanation"])
-
-# Fetch today's APOD
-if st.button("Fetch Today's APOD"):
-    apod = get_apod()  # Fetch today's APOD
     if "error" in apod:
         st.error(apod["error"])
     else:
@@ -75,4 +64,4 @@ if st.button("Fetch Today's APOD"):
 
 # Add a footer
 st.markdown("---")
-st.markdown("AI can mistakessss")
+st.markdown("AI can make mistakes.")
